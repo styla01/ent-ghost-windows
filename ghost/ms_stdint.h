@@ -62,10 +62,7 @@
 #  endif
 #endif
 
-// Workaround for V2010
-#ifndef _STDINT
-#define _STDINT
-#endif
+
 // 7.18.1 Integer types
 
 // 7.18.1.1 Exact-width integer types

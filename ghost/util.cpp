@@ -1,20 +1,25 @@
 /*
 
-   Copyright [2008] [Trevor Hogan]
+	ent-ghost
+	Copyright [2011-2013] [Jack Lu]
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+	This file is part of the ent-ghost source code.
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	ent-ghost is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+	ent-ghost source code is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
 
-   CODE PORTED FROM THE ORIGINAL GHOST PROJECT: http://ghost.pwner.org/
+	You should have received a copy of the GNU General Public License
+	along with ent-ghost source code. If not, see <http://www.gnu.org/licenses/>.
+
+	ent-ghost is modified from GHost++ (http://ghostplusplus.googlecode.com/)
+	GHost++ is Copyright [2008] [Trevor Hogan]
 
 */
 
@@ -355,6 +360,15 @@ uint32_t UTIL_ToUInt32( string &s )
 	return result;
 }
 
+uint64_t UTIL_ToUInt64( string &s )
+{
+	uint64_t result;
+	stringstream SS;
+	SS << s;
+	SS >> result;
+	return result;
+}
+
 int16_t UTIL_ToInt16( string &s )
 {
 	int16_t result;
@@ -626,6 +640,22 @@ void UTIL_Replace( string &Text, string Key, string Value )
 		Text.replace( KeyStart, Key.size( ), Value );
 		KeyStart = Text.find( Key );
 	}
+}
+
+vector<string> UTIL_Split( string &s, char delim, vector<string> &elems ) {
+    stringstream ss(s);
+    string item;
+    while( getline( ss, item, delim ) ) {
+        elems.push_back( item );
+    }
+    return elems;
+}
+
+
+std::vector<std::string> UTIL_Split( string &s, char delim ) {
+    vector<string> elems;
+    UTIL_Split( s, delim, elems );
+    return elems;
 }
 
 vector<string> UTIL_Tokenize( string s, char delim )

@@ -1,20 +1,25 @@
 /*
 
-   Copyright [2008] [Trevor Hogan]
+	ent-ghost
+	Copyright [2011-2013] [Jack Lu]
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+	This file is part of the ent-ghost source code.
 
-       http://www.apache.org/licenses/LICENSE-2.0
+	ent-ghost is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+	ent-ghost source code is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
 
-   CODE PORTED FROM THE ORIGINAL GHOST PROJECT: http://ghost.pwner.org/
+	You should have received a copy of the GNU General Public License
+	along with ent-ghost source code. If not, see <http://www.gnu.org/licenses/>.
+
+	ent-ghost is modified from GHost++ (http://ghostplusplus.googlecode.com/)
+	GHost++ is Copyright [2008] [Trevor Hogan]
 
 */
 
@@ -147,6 +152,25 @@ void CSocket :: Reset( )
 	memset( &m_SIN, 0, sizeof( m_SIN ) );
 	m_HasError = false;
 	m_Error = 0;
+}
+
+string CSocket :: GetHostName( )
+{
+       if( m_CachedHostName.empty( ) )
+       {
+               char host[NI_MAXHOST], service[NI_MAXSERV];
+               int s = getnameinfo( ( struct sockaddr * ) &m_SIN, sizeof( m_SIN ), host, NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV );
+               string str( host );
+
+               m_CachedHostName = str;
+
+               if( m_CachedHostName.empty( ) )
+                       m_CachedHostName = "Unknown";
+
+               return str;
+       }
+       else
+               return m_CachedHostName;
 }
 
 //
