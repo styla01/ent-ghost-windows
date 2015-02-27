@@ -149,6 +149,7 @@ void handler()
 	}
 	free( stack_syms );
 	*/
+
 	exit(1);
 }
 
@@ -624,18 +625,6 @@ CGHost :: CGHost( CConfig *CFG )
 	CConfig MapCFG;
 	MapCFG.Read( m_MapCFGPath + m_DefaultMap );
 	m_Map = new CMap( this, &MapCFG, m_MapCFGPath + m_DefaultMap );
-
-
-
-
-
-
-
-
-
-
-
-
 
 	m_AutoHostMap = new CMap( *m_Map );
 	m_SaveGame = new CSaveGame( );
@@ -1755,8 +1744,8 @@ string CGHost :: HostNameLookup( string ip )
 {
 	//try to find in cache first
 	boost::mutex::scoped_lock lockFind( m_HostNameCacheMutex );
-	//for( deque<HostNameInfo> :: iterator i = m_HostNameCache.begin( ); i != m_HostNameCache.end( ); i++ )
-     for( vector<HostNameInfo> :: iterator i = m_HostNameCache.begin( ); i != m_HostNameCache.end( ); i++ )
+//	for( deque<HostNameInfo> :: iterator i = m_HostNameCache.begin( ); i != m_HostNameCache.end( ); i++ )
+	for( vector<HostNameInfo> :: iterator i = m_HostNameCache.begin( ); i != m_HostNameCache.end( ); i++ )
 
 	{
 		if( i->ip == ip )
@@ -1786,8 +1775,8 @@ string CGHost :: HostNameLookup( string ip )
 
 	boost::mutex::scoped_lock lockInsert( m_HostNameCacheMutex );
 	m_HostNameCache.push_back( info );
-	//while( m_HostNameCache.size( ) > 512 ) m_HostNameCache.pop_front( );
-	  while( m_HostNameCache.size( ) > 512 ); // bad fix, uakf help us
+//	while( m_HostNameCache.size( ) > 512 ) m_HostNameCache.pop_front( );
+	m_HostNameCache.erase(m_HostNameCache.begin());
 	lockInsert.unlock( );
 
 	return info.hostname;

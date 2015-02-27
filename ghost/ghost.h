@@ -193,12 +193,10 @@ public:
 
 	bool m_DisableBot;						// whether this bot is currently disabled
 
-//	 deque<HostNameInfo> m_HostNameCache;	// host name lookup cache
-	vector<HostNameInfo> m_HostNameCache;	// test
+//	deque<HostNameInfo> m_HostNameCache;	// host name lookup cache
+	vector<HostNameInfo> m_HostNameCache;	// changed to vector
 
 	boost::mutex m_HostNameCacheMutex;
-
-
 
 	CGHost( CConfig *CFG );
 	~CGHost( );
